@@ -1,6 +1,6 @@
 const { argv } = require("./config/yargs");
 const colors = require("colors");
-const { create, readDB, updateDB, deleteDB } = require("./ToDO/toDo");
+const { create, readDB, updateDB, deleteDB } = require("./ToDo/toDo");
 
 let command = argv._[0];
 
@@ -22,7 +22,7 @@ switch (command) {
     break;
 
   case 'update':
-    updateDB(argv.d, argv.c);    
+    updateDB(argv.d, argv.c);
     break;
 
   case 'delete':
