@@ -3,6 +3,14 @@ const colors = require("colors");
 
 let toDoTask = [];
 
+const validationIsCompleteted = (isCompleted) => {
+  if (isCompleted === "true") {
+    return isCompleted = true;
+  } else if (isCompleted === "false") {
+    return isCompleted = false;
+  }
+}
+
 const saveDB = () => {
   let data = JSON.stringify(toDoTask);
   fs.writeFile("db/data.json", data, (err) => {
@@ -29,29 +37,15 @@ const create = (description) => {
   return console.log('Task Created!!'.green);
 };
 
-const readDB = () => {
-  try {
-    list = require("../db/data.json");
-    return list;
-  } catch (error) {
-    list = `Don´t Have Task!!`.red;
-    return list;
-  }
-};
+
 
 const updateDB = (description, isCompleted) => {
   uploadDB();
 
-  let index = toDoTask.findIndex((task) => task.description === description);
+  let index = toDoTask.findIndex((task) => task.description === description);  
 
-  if (isCompleted === "true") {
-    isCompleted = true;
-  } else if (isCompleted === "false") {
-    isCompleted = false;
-  }
-
-  if (typeof isCompleted === "boolean" && index >= 0) {
-    toDoTask[index].isCompleted = isCompleted;
+  if (typeof validationIsCompleteted(isCompleted) === "boolean" && index >= 0) {
+    toDoTask[index].isCompleted = validationIsCompleteted(isCompleted);
     saveDB();
     return console.log("Task Updated!!".green);;
   } else{
@@ -74,6 +68,21 @@ const deleteDB = ( description ) => {
   }
 
 }
+
+const readDB = (isCompleted = 'all') => {
+  toDoTask = require("../db/data.json");
+  if(isCompleted = 'all'){
+    list = toDoTask;
+    return list;
+  }else if (!validationIsCompleteted(isCompleted)) {
+    let list = toDoTask.filter( task => !task.isCompleted)    
+    return list
+  }else if (validationIsCompleteted(isCompleted)){    
+    let list = toDoTask.filter( task => task.isCompleted)    
+    return list
+  }
+  
+};
 
 module.exports = {
   create,

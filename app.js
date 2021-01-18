@@ -6,11 +6,11 @@ let command = argv._[0];
 
 switch (command) {
   case 'create':
-    create(argv.d);    
+    create(argv.d);
     break;
 
   case 'listing':
-    let list = readDB();
+    let list = readDB(argv.c);
     console.log("====TO DO LiSt====\n".green);
     list.map((list) => {
       console.log(

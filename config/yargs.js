@@ -17,6 +17,9 @@ module.exports.argv = require("yargs")
   .command("delete", "Delete a task", {
     description,
   })
+  .command("listing", "Listing the tasks", {
+    isCompleted,
+  })
   .command("update", "Update the description of a task to do", {
     description,
     isCompleted,
